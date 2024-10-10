@@ -1,47 +1,67 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+<script>
+export default {
+  data() {
+    return {
+      valor1: 0,
+      valor2: 0,
+      operation: 'soma',
+    };
+  },
+  computed: {
+    result() {
+      switch (this.operation) {
+        case 'soma':
+          return this.valor1 + this.valor2;
+        case 'subtrai':
+          return this.valor1 - this.valor2;
+        case 'multiplica':
+          return this.valor1 * this.valor2;
+        case 'divide':
+          return this.valor2 !== 0 ? this.valor1 / this.valor2 : 'Não é possível dividir por zero';
+        default:
+          return 0;
+      }
+    },
+  },
+};
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <div id="app" class="calculadora">
+    <h1>Calculadora Aritmética</h1>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+    <div>
+      <input type="number" v-model="valor1" placeholder="Número 1" />
+      <input type="number" v-model="valor2" placeholder="Número 2" />
     </div>
-  </header>
 
-  <main>
-    <TheWelcome />
-  </main>
+    <div>
+      <select v-model="operation">
+        <option value="soma">soma</option>
+        <option value="subtrai">subtração</option>
+        <option value="multiplica">multiplicação</option>
+        <option value="divide">divisão</option>
+      </select>
+    </div>
+
+    <div>
+      <h2>Resultado: {{ result }}</h2>
+    </div>
+  </div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
+.calculadora {
+  max-width: 300px;
+  margin: 0 auto;
+  text-align: center;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+input {
+  margin: 5px;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+select {
+  margin: 5px;
 }
 </style>
